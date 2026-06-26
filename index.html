@@ -1,249 +1,663 @@
-
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>臺北市立中正高中｜115學年度國際及特色課程甄選</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: var(--font-sans); }
-.wrap { padding: 1.5rem 1rem 2rem; max-width: 680px; }
-.school-header { text-align: center; margin-bottom: 1.5rem; }
-.school-header h1 { font-size: 17px; font-weight: 500; color: var(--text-primary); }
-.school-header p { font-size: 13px; color: var(--text-secondary); margin-top: 4px; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-.section-title { font-size: 13px; font-weight: 500; color: var(--text-secondary); text-transform: uppercase; letter-spacing: .05em; margin: 1.5rem 0 .75rem; border-bottom: 0.5px solid var(--border); padding-bottom: 6px; }
+  :root {
+    --navy: #1A3A6B;
+    --blue: #2563EB;
+    --blue-light: #EBF2FF;
+    --gold: #F5B800;
+    --gold-dark: #C99300;
+    --white: #ffffff;
+    --gray-bg: #F6F8FC;
+    --gray-text: #4B5563;
+    --gray-muted: #9CA3AF;
+    --text: #1F2937;
+    --radius: 12px;
+  }
 
-/* Course cards */
-.course-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.course-card { background: var(--surface-2); border: 0.5px solid var(--border); border-radius: 12px; padding: .875rem 1rem; }
-.course-card .tag { display: inline-block; font-size: 11px; font-weight: 500; padding: 2px 8px; border-radius: 20px; margin-bottom: 6px; }
-.course-card h3 { font-size: 14px; font-weight: 500; color: var(--text-primary); margin-bottom: 4px; }
-.course-card .sub { font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
-.course-card .quota { font-size: 12px; font-weight: 500; margin-top: 6px; }
-.course-card .req { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
+  html { scroll-behavior: smooth; }
 
-.tag-intl { background: var(--bg-accent); color: var(--text-accent); }
-.tag-ai { background: var(--bg-success); color: var(--text-success); }
-.quota-intl { color: var(--text-accent); }
-.quota-ai { color: var(--text-success); }
+  body {
+    font-family: 'Noto Sans TC', sans-serif;
+    color: var(--text);
+    background: var(--white);
+    line-height: 1.7;
+  }
 
-/* Score table */
-.score-table { width: 100%; border-collapse: collapse; font-size: 12px; }
-.score-table th { background: var(--surface-1); color: var(--text-secondary); font-weight: 500; padding: 7px 10px; text-align: center; border: 0.5px solid var(--border); }
-.score-table td { padding: 7px 10px; text-align: center; border: 0.5px solid var(--border); color: var(--text-primary); }
-.score-table .row-name { text-align: left; font-weight: 500; color: var(--text-secondary); }
-.score-table .val { font-weight: 500; color: var(--text-accent); }
-.score-table .val-g { font-weight: 500; color: var(--text-success); }
-.score-table .na { color: var(--text-muted); }
+  /* ── NAVBAR ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--navy);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    height: 56px;
+    box-shadow: 0 2px 12px rgba(0,0,0,.18);
+  }
+  .nav-logo {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 15px;
+    color: var(--white);
+    letter-spacing: .04em;
+  }
+  .nav-logo span { color: var(--gold); }
+  .nav-links { display: flex; gap: 1.5rem; }
+  .nav-links a {
+    font-size: 13px;
+    color: rgba(255,255,255,.8);
+    text-decoration: none;
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
 
-/* Steps */
-.steps { display: flex; gap: 8px; align-items: flex-start; }
-.step { flex: 1; }
-.step-num { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 500; margin: 0 auto 6px; }
-.step-num-1 { background: var(--bg-accent); color: var(--text-accent); }
-.step-num-2 { background: var(--bg-warning); color: var(--text-warning); }
-.step-num-3 { background: var(--bg-success); color: var(--text-success); }
-.step-body { background: var(--surface-1); border: 0.5px solid var(--border); border-radius: 10px; padding: .75rem; }
-.step-body h4 { font-size: 13px; font-weight: 500; color: var(--text-primary); margin-bottom: 5px; text-align: center; }
-.step-body p { font-size: 11.5px; color: var(--text-secondary); line-height: 1.6; text-align: center; }
-.step-arrow { color: var(--text-muted); font-size: 18px; padding-top: 20px; flex-shrink: 0; }
+  /* ── HERO ── */
+  .hero {
+    background: var(--navy);
+    position: relative;
+    overflow: hidden;
+    padding: 4rem 2rem 5.5rem;
+    text-align: center;
+  }
+  /* diagonal gold slash */
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 0; right: 0;
+    height: 70px;
+    background: var(--white);
+    clip-path: polygon(0 100%, 100% 0, 100% 100%);
+  }
+  .hero-eyebrow {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--navy);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-bottom: 1.25rem;
+  }
+  .hero h1 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: clamp(22px, 4vw, 34px);
+    color: var(--white);
+    line-height: 1.45;
+    margin-bottom: 1rem;
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--gold);
+  }
+  .hero-sub {
+    font-size: 15px;
+    color: rgba(255,255,255,.72);
+    max-width: 520px;
+    margin: 0 auto 2rem;
+  }
+  .hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+  .badge {
+    background: rgba(255,255,255,.1);
+    border: 1px solid rgba(255,255,255,.2);
+    color: var(--white);
+    font-size: 13px;
+    padding: 6px 16px;
+    border-radius: 20px;
+  }
+  .badge strong { color: var(--gold); }
 
-/* Timeline */
-.timeline { display: flex; flex-direction: column; gap: 0; }
-.tl-row { display: flex; gap: 12px; align-items: stretch; }
-.tl-dot-col { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; width: 18px; }
-.tl-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; margin-top: 14px; }
-.tl-line { flex: 1; width: 1px; background: var(--border-strong); }
-.tl-last .tl-line { display: none; }
-.tl-content { padding: 10px 0 14px; flex: 1; }
-.tl-date { font-size: 12px; font-weight: 500; color: var(--text-secondary); }
-.tl-event { font-size: 13px; font-weight: 500; color: var(--text-primary); margin-top: 2px; }
-.tl-note { font-size: 11.5px; color: var(--text-muted); margin-top: 2px; line-height: 1.5; }
-.dot-blue { background: var(--text-accent); }
-.dot-amber { background: #BA7517; }
-.dot-green { background: var(--text-success); }
-.dot-red { background: #A32D2D; }
+  /* ── SECTION WRAPPER ── */
+  section { padding: 3.5rem 1.5rem; max-width: 900px; margin: 0 auto; }
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1.5rem;
+  }
+  .section-label .dot {
+    width: 8px; height: 8px;
+    background: var(--gold);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .section-label h2 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--navy);
+  }
+  .section-label .line {
+    flex: 1;
+    height: 1px;
+    background: #DDE4F0;
+  }
 
-/* Notes */
-.note-list { display: flex; flex-direction: column; gap: 6px; }
-.note-item { background: var(--surface-1); border-left: 3px solid var(--border-accent); border-radius: 0 8px 8px 0; padding: 8px 12px; font-size: 12.5px; color: var(--text-primary); line-height: 1.6; }
-.note-item strong { color: var(--text-accent); font-weight: 500; }
+  /* ── COURSE CARDS ── */
+  .course-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 14px;
+  }
+  .course-card {
+    background: var(--white);
+    border: 1.5px solid #DDE4F0;
+    border-radius: var(--radius);
+    padding: 1.25rem 1.25rem 1.25rem 1.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: box-shadow .2s, border-color .2s;
+    cursor: default;
+  }
+  .course-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+    background: var(--gold);
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform .25s ease;
+    border-radius: 0 2px 2px 0;
+  }
+  .course-card:hover { box-shadow: 0 4px 20px rgba(26,58,107,.1); border-color: #B8C9E8; }
+  .course-card:hover::before { transform: scaleY(1); }
 
-.divider-note { font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 1rem; }
+  .card-tag {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .06em;
+    padding: 3px 10px;
+    border-radius: 12px;
+    display: inline-block;
+    margin-bottom: 8px;
+  }
+  .tag-intl { background: var(--blue-light); color: var(--blue); }
+  .tag-ai   { background: #ECFDF5; color: #059669; }
+
+  .course-card h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 5px;
+  }
+  .course-card .desc {
+    font-size: 13px;
+    color: var(--gray-text);
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+  .card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .meta-chip {
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 8px;
+    background: var(--gray-bg);
+    color: var(--navy);
+    font-weight: 500;
+  }
+  .meta-quota { background: #FFF8E1; color: #856800; }
+
+  /* ── SCORE TABLE ── */
+  .score-wrap { overflow-x: auto; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    min-width: 520px;
+  }
+  thead tr { background: var(--navy); }
+  thead th {
+    color: var(--white);
+    font-weight: 500;
+    padding: 11px 14px;
+    text-align: center;
+    letter-spacing: .02em;
+  }
+  thead th:first-child { text-align: left; border-radius: var(--radius) 0 0 0; }
+  thead th:last-child  { border-radius: 0 var(--radius) 0 0; }
+  tbody tr { border-bottom: 1px solid #EEF2FA; }
+  tbody tr:nth-child(even) { background: var(--gray-bg); }
+  tbody td { padding: 10px 14px; text-align: center; }
+  tbody td:first-child { text-align: left; font-weight: 500; color: var(--navy); }
+  .pct { font-weight: 700; color: var(--blue); }
+  .na  { color: var(--gray-muted); }
+
+  /* ── STEPS ── */
+  .steps { display: flex; gap: 0; align-items: stretch; flex-wrap: wrap; }
+  .step-item {
+    flex: 1 1 180px;
+    background: var(--white);
+    border: 1.5px solid #DDE4F0;
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    text-align: center;
+    position: relative;
+  }
+  .step-num {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 10px;
+    font-size: 18px;
+    font-weight: 700;
+    font-family: 'Noto Serif TC', serif;
+  }
+  .sn1 { background: var(--blue-light); color: var(--blue); }
+  .sn2 { background: #FFF8E1; color: #856800; }
+  .sn3 { background: #ECFDF5; color: #059669; }
+  .step-item h4 { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 5px; }
+  .step-item p  { font-size: 12.5px; color: var(--gray-text); line-height: 1.6; }
+  .step-arrow {
+    align-self: center;
+    color: var(--gold);
+    font-size: 22px;
+    padding: 0 6px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .step-note {
+    text-align: center;
+    margin-top: 12px;
+    font-size: 12.5px;
+    color: #A32D2D;
+    font-weight: 700;
+    background: #FFF5F5;
+    border: 1px solid #FCA5A5;
+    border-radius: 8px;
+    padding: 8px 16px;
+  }
+
+  /* ── TIMELINE ── */
+  .timeline { display: flex; flex-direction: column; gap: 0; }
+  .tl-item { display: flex; gap: 16px; }
+  .tl-left { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; width: 20px; }
+  .tl-dot {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    border: 2.5px solid var(--navy);
+    background: var(--white);
+    margin-top: 14px;
+    flex-shrink: 0;
+  }
+  .tl-dot.filled { background: var(--gold); border-color: var(--gold); }
+  .tl-dot.key    { background: var(--blue); border-color: var(--blue); }
+  .tl-line { flex: 1; width: 2px; background: #DDE4F0; }
+  .tl-item:last-child .tl-line { display: none; }
+  .tl-body { padding: 10px 0 18px; flex: 1; }
+  .tl-date { font-size: 12px; font-weight: 700; color: var(--blue); margin-bottom: 2px; }
+  .tl-event { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 3px; }
+  .tl-note { font-size: 12px; color: var(--gray-text); line-height: 1.6; }
+
+  /* ── NOTES ── */
+  .notes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; }
+  .note-card {
+    border-left: 4px solid var(--gold);
+    background: var(--blue-light);
+    border-radius: 0 10px 10px 0;
+    padding: 12px 14px;
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.65;
+  }
+  .note-card strong { color: var(--navy); display: block; font-weight: 700; margin-bottom: 3px; font-size: 13.5px; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--navy);
+    color: rgba(255,255,255,.65);
+    text-align: center;
+    padding: 2rem 1.5rem;
+    font-size: 13px;
+    margin-top: 2rem;
+  }
+  footer a { color: var(--gold); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+
+  /* ── DIVIDER ── */
+  .bg-alt { background: var(--gray-bg); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    nav { padding: 0 1rem; }
+    .nav-links { gap: 1rem; }
+    .hero { padding: 3rem 1.25rem 5rem; }
+    .steps { flex-direction: column; }
+    .step-arrow { transform: rotate(90deg); align-self: center; padding: 4px 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .course-card::before { transition: none; }
+  }
 </style>
+</head>
+<body>
 
-<div class="wrap">
-  <div class="school-header">
-    <h1>臺北市立中正高中 115學年度<br>國際及特色課程甄選懶人包</h1>
-    <p>115年5月30日公告 · 限本校高一新生（普通班）或現有在校生</p>
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-logo">臺北市立<span>中正高中</span></div>
+  <div class="nav-links">
+    <a href="#courses">課程介紹</a>
+    <a href="#score">甄選配分</a>
+    <a href="#apply">報名流程</a>
+    <a href="#schedule">重要時程</a>
   </div>
+</nav>
 
-  <!-- 課程總覽 -->
-  <div class="section-title">課程總覽</div>
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">115 學年度公告</div>
+  <h1>國際及特色課程<br><em>甄選簡章</em></h1>
+  <p class="hero-sub">中正高中持續深耕國際教育近 9 年，提供雙語、國際學制、AI 等多元課程，讓學生探索更廣闊的學習視野。</p>
+  <div class="hero-badges">
+    <div class="badge">🌏 國際雙語課程類</div>
+    <div class="badge">🤖 AI 人工智慧課程</div>
+    <div class="badge">報名截止 <strong>7/13（一）12:00</strong></div>
+  </div>
+</div>
+
+<!-- COURSES -->
+<section id="courses">
+  <div class="section-label">
+    <div class="dot"></div>
+    <h2>課程總覽</h2>
+    <div class="line"></div>
+  </div>
   <div class="course-grid">
     <div class="course-card">
-      <span class="tag tag-intl">國際雙語類</span>
+      <span class="card-tag tag-intl">國際雙語類</span>
       <h3>雙語實驗班</h3>
-      <div class="sub">部分英語、雙語授課<br>自然班群 B、D 班</div>
-      <div class="quota quota-intl">▸ 錄取 34 人</div>
-      <div class="req">需：英文會考 A 以上</div>
+      <p class="desc">部分英語、雙語授課，自然班群 B、D 班，強化語言與雙語轉化能力。</p>
+      <div class="card-meta">
+        <span class="meta-chip meta-quota">錄取 34 人</span>
+        <span class="meta-chip">英文會考 A 以上</span>
+        <span class="meta-chip">普通班高一新生</span>
+      </div>
     </div>
     <div class="course-card">
-      <span class="tag tag-intl">國際雙語類</span>
-      <h3>臺美雙聯 JDP</h3>
-      <div class="sub">與美國 Fairmont 學校<br>雙學位、全英語課程</div>
-      <div class="quota quota-intl">▸ 錄取 25 人</div>
-      <div class="req">無額外成績限制</div>
+      <span class="card-tag tag-intl">國際雙語類</span>
+      <h3>臺美雙聯學制 JDP</h3>
+      <p class="desc">與美國加州 Fairmont 學校合作，取得雙學位，接軌國際升學。</p>
+      <div class="card-meta">
+        <span class="meta-chip meta-quota">錄取 25 人</span>
+        <span class="meta-chip">全英語授課</span>
+        <span class="meta-chip">普通班高一新生</span>
+      </div>
     </div>
     <div class="course-card">
-      <span class="tag tag-intl">國際雙語類</span>
-      <h3>臺英 IFY 預科</h3>
-      <div class="sub">英國 NCUK 大學預科<br>商業／科學／工程模組</div>
-      <div class="quota quota-intl">▸ 錄取 12 人</div>
-      <div class="req">需通過英語門檻考試</div>
+      <span class="card-tag tag-intl">國際雙語類</span>
+      <h3>臺英 IFY 大學預科</h3>
+      <p class="desc">英國 NCUK 大學預科課程，商業／科學／工程模組，邁向英國大學。</p>
+      <div class="card-meta">
+        <span class="meta-chip meta-quota">錄取 12 人</span>
+        <span class="meta-chip">需通過英語門檻</span>
+        <span class="meta-chip">普通班高一新生</span>
+      </div>
     </div>
     <div class="course-card">
-      <span class="tag tag-intl">國際雙語類</span>
+      <span class="card-tag tag-intl">國際雙語類</span>
       <h3>舞蹈國際課程</h3>
-      <div class="sub">美國 MCI 芭蕾合作<br>限舞蹈班學生</div>
-      <div class="quota quota-intl">▸ 錄取 10 人</div>
-      <div class="req">限本校舞蹈班高一、高二</div>
+      <p class="desc">與美國緬因州 MCI 芭蕾劇院合作，深化舞蹈國際化程度。</p>
+      <div class="card-meta">
+        <span class="meta-chip meta-quota">錄取 10 人</span>
+        <span class="meta-chip">限舞蹈班學生</span>
+        <span class="meta-chip">高一、高二</span>
+      </div>
     </div>
-    <div class="course-card" style="grid-column: span 2;">
-      <span class="tag tag-ai">AI 課程類</span>
+    <div class="course-card" style="grid-column: 1 / -1;">
+      <span class="card-tag tag-ai">AI 課程類</span>
       <h3>AI 人工智慧課程</h3>
-      <div class="sub">與臺北科大、淡江大學、西門子合作 · 培養運算思維與設計思考 · 高二分流科學工程 or 商業分析組</div>
-      <div class="quota quota-ai">▸ 錄取 34 人</div>
-      <div class="req">需：數學或自然會考 A 以上 · 雙 A++ 可免筆試</div>
+      <p class="desc">與臺北科大、淡江大學、西門子、達明機器人合作，培養運算思維與設計思考。高二分流科學工程實務應用組或商業應用預測分析組。</p>
+      <div class="card-meta">
+        <span class="meta-chip meta-quota">錄取 34 人</span>
+        <span class="meta-chip">數學或自然 A 以上</span>
+        <span class="meta-chip">雙 A++ 可免筆試</span>
+        <span class="meta-chip">普通班高一新生</span>
+      </div>
     </div>
   </div>
+  <p style="font-size:12.5px;color:#A32D2D;margin-top:12px;font-weight:700;">
+    ⚠️ 國際雙語課程類 與 AI 課程類 僅能二擇一報名
+  </p>
+</section>
 
-  <!-- 甄選配分 -->
-  <div class="section-title">甄選配分比例</div>
-  <table class="score-table">
-    <thead>
-      <tr>
-        <th class="row-name">項目</th>
-        <th>雙語</th>
-        <th>JDP</th>
-        <th>IFY</th>
-        <th>舞蹈</th>
-        <th>AI</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="row-name">英文測驗</td>
-        <td class="val">25%</td>
-        <td class="val">30%</td>
-        <td class="val">40%</td>
-        <td class="val">20%</td>
-        <td class="na">—</td>
-      </tr>
-      <tr>
-        <td class="row-name">數學測驗</td>
-        <td class="val">25%</td>
-        <td class="val">25%</td>
-        <td class="na">—</td>
-        <td class="na">—</td>
-        <td class="val-g">70%</td>
-      </tr>
-      <tr>
-        <td class="row-name">書審資料</td>
-        <td class="val">10%</td>
-        <td class="val">10%</td>
-        <td class="val">10%</td>
-        <td class="val">50%</td>
-        <td class="val-g">30%</td>
-      </tr>
-      <tr>
-        <td class="row-name">全英文面試</td>
-        <td class="val">40%</td>
-        <td class="val">35%</td>
-        <td class="val">50%</td>
-        <td class="val">30%</td>
-        <td class="na">—</td>
-      </tr>
-    </tbody>
-  </table>
+<!-- SCORE -->
+<div class="bg-alt">
+<section id="score">
+  <div class="section-label">
+    <div class="dot"></div>
+    <h2>甄選配分比例</h2>
+    <div class="line"></div>
+  </div>
+  <div class="score-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>評分項目</th>
+          <th>雙語實驗班</th>
+          <th>JDP</th>
+          <th>IFY</th>
+          <th>舞蹈</th>
+          <th>AI 課程</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>英文測驗</td>
+          <td class="pct">25%</td>
+          <td class="pct">30%</td>
+          <td class="pct">40%</td>
+          <td class="pct">20%</td>
+          <td class="na">—</td>
+        </tr>
+        <tr>
+          <td>數學測驗</td>
+          <td class="pct">25%</td>
+          <td class="pct">25%</td>
+          <td class="na">—</td>
+          <td class="na">—</td>
+          <td class="pct">70%</td>
+        </tr>
+        <tr>
+          <td>書審資料</td>
+          <td class="pct">10%</td>
+          <td class="pct">10%</td>
+          <td class="pct">10%</td>
+          <td class="pct">50%</td>
+          <td class="pct">30%</td>
+        </tr>
+        <tr>
+          <td>全英文面試</td>
+          <td class="pct">40%</td>
+          <td class="pct">35%</td>
+          <td class="pct">50%</td>
+          <td class="pct">30%</td>
+          <td class="na">—</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:12px;color:var(--gray-muted);margin-top:8px;">IFY 另需通過英語門檻 Password 考試（雅思 4.5 以上可免試）</p>
+</section>
+</div>
 
-  <!-- 報名三步驟 -->
-  <div class="section-title">報名三步驟（三步驟全完成才算報名！）</div>
+<!-- APPLY -->
+<section id="apply">
+  <div class="section-label">
+    <div class="dot"></div>
+    <h2>報名三步驟</h2>
+    <div class="line"></div>
+  </div>
   <div class="steps">
-    <div class="step">
-      <div class="step-num step-num-1">1</div>
-      <div class="step-body">
-        <h4>線上填寫</h4>
-        <p>報名前先上 Google 表單填基本資料，並上傳書審資料 PDF</p>
-      </div>
+    <div class="step-item">
+      <div class="step-num sn1">1</div>
+      <h4>線上填寫 & 上傳</h4>
+      <p>至 Google 表單填寫基本資料，並上傳書審資料 PDF（命名：姓名_課程縮寫_書審資料）</p>
     </div>
     <div class="step-arrow">›</div>
-    <div class="step">
-      <div class="step-num step-num-2">2</div>
-      <div class="step-body">
-        <h4>現場繳件</h4>
-        <p>攜帶報名表、准考證（貼2吋照）及相關成績正本到誠正樓史地教室</p>
-      </div>
+    <div class="step-item">
+      <div class="step-num sn2">2</div>
+      <h4>現場繳件報名</h4>
+      <p>攜帶報名表、准考證（貼 2 吋照片）及相關成績正本，至誠正樓 1 樓史地專科教室辦理</p>
     </div>
     <div class="step-arrow">›</div>
-    <div class="step">
-      <div class="step-num step-num-3">3</div>
-      <div class="step-body">
-        <h4>繳費完成</h4>
-        <p>每課程 $100 元，完成後核發蓋章准考證與收據</p>
-      </div>
+    <div class="step-item">
+      <div class="step-num sn3">3</div>
+      <h4>繳費完成報名</h4>
+      <p>每課程報名費 NT$100，完成後核發蓋章准考證及繳費收據</p>
     </div>
   </div>
+  <div class="step-note">⚠️ 必須完成三個步驟才算完成報名！缺一不可。</div>
 
-  <!-- 重要時程 -->
-  <div class="section-title">重要時程</div>
+  <br>
+  <div class="section-label" style="margin-top:1.5rem;">
+    <div class="dot"></div>
+    <h2>報名時間</h2>
+    <div class="line"></div>
+  </div>
+  <div class="notes-grid">
+    <div class="note-card">
+      <strong>7/9（四）13:00–16:00</strong>現場報名第一天，請先完成線上 STEP 1 再前往。
+    </div>
+    <div class="note-card">
+      <strong>7/10（五）09:00–16:00</strong>現場報名第二天。
+    </div>
+    <div class="note-card">
+      <strong>7/13（一）09:00–12:00</strong>最後報名截止日，請勿拖至最後一刻。
+    </div>
+  </div>
+</section>
+
+<!-- SCHEDULE -->
+<div class="bg-alt">
+<section id="schedule">
+  <div class="section-label">
+    <div class="dot"></div>
+    <h2>重要時程</h2>
+    <div class="line"></div>
+  </div>
   <div class="timeline">
-    <div class="tl-row">
-      <div class="tl-dot-col"><div class="tl-dot dot-blue"></div><div class="tl-line"></div></div>
-      <div class="tl-content">
-        <div class="tl-date">7/9（四）13:00–16:00<br>7/10（五）09:00–16:00<br>7/13（一）09:00–12:00</div>
-        <div class="tl-event">現場報名（3 天擇一）</div>
-        <div class="tl-note">先完成 STEP 1 線上填寫再來現場</div>
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-dot filled"></div><div class="tl-line"></div></div>
+      <div class="tl-body">
+        <div class="tl-date">7/9（四）～ 7/13（一）</div>
+        <div class="tl-event">現場報名</div>
+        <div class="tl-note">三天擇一，須先完成線上填寫 STEP 1，並攜帶相關資料至校辦理</div>
       </div>
     </div>
-    <div class="tl-row">
-      <div class="tl-dot-col"><div class="tl-dot dot-amber"></div><div class="tl-line"></div></div>
-      <div class="tl-content">
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+      <div class="tl-body">
         <div class="tl-date">7/15（三）18:00 前</div>
         <div class="tl-event">考場公告</div>
-        <div class="tl-note">筆試及面試試場公告於學校網站</div>
+        <div class="tl-note">筆試及面試試場公告於學校官網，請留意考場位置</div>
       </div>
     </div>
-    <div class="tl-row">
-      <div class="tl-dot-col"><div class="tl-dot dot-amber"></div><div class="tl-line"></div></div>
-      <div class="tl-content">
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-dot key"></div><div class="tl-line"></div></div>
+      <div class="tl-body">
         <div class="tl-date">7/16（四）</div>
-        <div class="tl-event">筆試 + 面試日</div>
-        <div class="tl-note">07:40 報到 → 08:10 英文 → 09:20 數學／IFY Password → 10:30 IFY 面試 → 13:10 雙語、JDP 面試</div>
+        <div class="tl-event">筆試 + 面試日（重要！）</div>
+        <div class="tl-note">
+          07:40 筆試報到 → 08:10 英文測驗 → 09:20 數學／IFY Password／舞蹈面試<br>
+          10:30 IFY 面試 → 13:10 雙語、JDP 面試<br>
+          請攜帶 2B 鉛筆、原子筆、修正帶，遲到 15 分鐘不得入場
+        </div>
       </div>
     </div>
-    <div class="tl-row">
-      <div class="tl-dot-col"><div class="tl-dot dot-green"></div><div class="tl-line"></div></div>
-      <div class="tl-content">
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-dot"></div><div class="tl-line"></div></div>
+      <div class="tl-body">
         <div class="tl-date">7/20（一）11:00 前</div>
         <div class="tl-event">甄選結果公告</div>
-        <div class="tl-note">11:00–12:00 成績複查 · 13:00–15:00 備取遞補聯繫</div>
+        <div class="tl-note">公告於學校官網（含備取順序）｜11:00–12:00 成績複查｜13:00–15:00 備取遞補</div>
       </div>
     </div>
-    <div class="tl-row tl-last">
-      <div class="tl-dot-col"><div class="tl-dot dot-green"></div><div class="tl-line"></div></div>
-      <div class="tl-content">
-        <div class="tl-date">7/21–7/24</div>
-        <div class="tl-event">正式錄取公告 + 線上報到 + 家長說明會</div>
-        <div class="tl-note">7/24（五）10:00 JDP、IFY 錄取生及家長說明會（務必出席）</div>
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-dot filled"></div><div class="tl-line"></div></div>
+      <div class="tl-body">
+        <div class="tl-date">7/21（二）起</div>
+        <div class="tl-event">正式錄取公告 & 線上報到</div>
+        <div class="tl-note">完成線上報到作業（7/22–7/24）</div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-dot key"></div><div class="tl-line"></div></div>
+      <div class="tl-body">
+        <div class="tl-date">7/24（五）10:00–12:00</div>
+        <div class="tl-event">JDP、IFY 錄取新生及家長說明會</div>
+        <div class="tl-note">每位正式錄取學生務必出席，其他課程說明會另行通知</div>
       </div>
     </div>
   </div>
-
-  <!-- 注意事項 -->
-  <div class="section-title">重要注意事項</div>
-  <div class="note-list">
-    <div class="note-item"><strong>二擇一：</strong>國際雙語類 和 AI 課程類 只能選一類報名</div>
-    <div class="note-item"><strong>國際類可多報：</strong>雙語、JDP、IFY 三者可同時報名，但最終只錄取一種（需填志願序）</div>
-    <div class="note-item"><strong>報名費：</strong>每課程 $100 元，低收入戶或失業給付家庭可免費</div>
-    <div class="note-item"><strong>考試當天：</strong>攜帶 2B 鉛筆、橡皮擦、藍/黑色原子筆及修正帶，遲到 15 分鐘不得入場</div>
-    <div class="note-item"><strong>書審資料：</strong>PDF 格式上傳，檔案命名「姓名_課程縮寫_書審資料」（例：王小明_JDP_書審資料）</div>
-  </div>
-  <div class="divider-note">詳細資訊以學校官網公告為準 · http://www.ccsh.tp.edu.tw/</div>
+</section>
 </div>
+
+<!-- NOTES -->
+<section>
+  <div class="section-label">
+    <div class="dot"></div>
+    <h2>注意事項</h2>
+    <div class="line"></div>
+  </div>
+  <div class="notes-grid">
+    <div class="note-card">
+      <strong>二擇一原則</strong>
+      國際雙語課程類 和 AI 課程類只能選一類報名，不可同時跨類。
+    </div>
+    <div class="note-card">
+      <strong>國際類可多報</strong>
+      雙語、JDP、IFY 三者可同時報名，需填寫志願序，最終錄取其中一種。
+    </div>
+    <div class="note-card">
+      <strong>書審資料命名</strong>
+      PDF 格式上傳，命名：「姓名＿課程縮寫＿書審資料」例：王小明_JDP_書審資料
+    </div>
+    <div class="note-card">
+      <strong>報名費減免</strong>
+      低收入戶子女或直系血親尊親屬支領失業給付者，可申請免收報名費（需附證明）。
+    </div>
+    <div class="note-card">
+      <strong>准考證保管</strong>
+      核發後請妥善保管，遺失須於考試當日攜帶同式照片與身分證件至教務處補發。
+    </div>
+    <div class="note-card">
+      <strong>結果查詢</strong>
+      甄選結果公告於學校官網，不另行個別通知，請主動上網確認。
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p style="font-family:'Noto Serif TC',serif;font-size:15px;color:#fff;margin-bottom:6px;">臺北市立中正高級中學</p>
+  <p>教務處實驗研究組｜115學年度國際及特色課程甄選</p>
+  <p style="margin-top:8px;">
+    官方網站：<a href="http://www.ccsh.tp.edu.tw/" target="_blank">www.ccsh.tp.edu.tw</a>
+  </p>
+  <p style="margin-top:12px;font-size:11.5px;opacity:.6;">詳細資訊以學校官方公告為準 · 115年5月30日第一次公告</p>
+</footer>
+
+</body>
+</html>
